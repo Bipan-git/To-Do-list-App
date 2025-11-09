@@ -1,4 +1,5 @@
 import React from "react";
+import "./App.css";
 import ToDoApp from "./component/ToDoApp";
 
 export default function App() {
