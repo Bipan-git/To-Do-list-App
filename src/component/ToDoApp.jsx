@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import "./component/ToDoApp.css";
+import "./ToDoApp.css";
 
 export default function ToDoApp() {
   const [tasks, setTasks] = useState([]);
@@ -12,7 +12,7 @@ export default function ToDoApp() {
     setNewTask("");
   };
   return (
-    <div className="todo container">
+    <div className="todoContainer">
       <div classNam="input-area">
         <input
           type="text"

@@ -1,0 +1,39 @@
+.todoContainer {
+  background-color: #fefefe;
+  border-radius: 12px;
+  padding: 20px;
+  width: 350px;
+  height: 100vh;
+  margin: 40px auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.input-area {
+  display: flex;
+  gap: 10px;
+}
+.input-area input {
+  flex: 1;
+  padding: 8px;
+  height: 100vh;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+.input-area button {
+  padding: 8px 16px;
+  background-color: #456146;
+  color: rgb(6, 0, 0);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.task-list li {
+  background: #000201;
+  padding: 10px;
+  margin-bottom: 6px;
+  border-radius: 6px;
+}
+.task {
+  padding: 20px;
+  font-size: 20px;
+  margin-bottom: 15px;
+}
