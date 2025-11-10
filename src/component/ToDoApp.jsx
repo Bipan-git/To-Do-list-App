@@ -3,9 +3,10 @@ import "./ToDoApp.css";
 
 export default function ToDoApp() {
   const [tasks, setTasks] = useState([]);
-  const [input, setInput] = useState([""]);
+  const [input, setInput] = useState("");
   const [isEditing, setIsEditing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
+  const [filter, setFilter] = useState("all");
 
   //add new task
   const handleAddTask = () => {
@@ -14,33 +15,46 @@ export default function ToDoApp() {
     if (isEditing) {
       //updated tasks immutably
       const updatedTasks = [...tasks];
-      updatedTasks[currentIndex] = input;
+      updatedTasks[currentIndex].text = input;
       setTasks(updatedTasks);
       setIsEditing(false);
       setCurrentIndex(null);
     } else {
-      setTasks([...tasks, input]);
+      setTasks([...tasks, { text: input, completed: false }]);
     }
     setInput("");
   };
   //delete task
 
   const handleDeleteTask = (index) => {
-    const updatedTaks = tasks.filter((_, i) => i != index);
-    setTasks(updatedTaks);
+    const updatedTasks = tasks.filter((_, i) => i !== index);
+    setTasks(updatedTasks);
   };
 
   //edit task
   const handleEditTask = (index) => {
     setIsEditing(true);
     setCurrentIndex(index);
-    setInput(tasks[index]);
+    setInput(tasks[index].text);
   };
+  //toggle completre
+  const toggleComplete = (index) => {
+    const updatedTasks = [...tasks];
+    updatedTasks[index].completed = !updatedTasks[index].completed;
+    setTasks(updatedTasks);
+  };
+  //filter Tasks
+  const filteredTasks = tasks.filter((task) => {
+    if (filter === "completed") return task.completed;
+    if (filter === "pending") return !task.completed;
+    return true;
+  });
+
   return (
     <div className="todoContainer">
       <h2>My To-Do-list</h2>
 
-      <div classNam="input-area">
+      <div className="input-area">
         <input
           type="text"
           placeholder="Enter task..."
@@ -51,26 +65,35 @@ export default function ToDoApp() {
           {isEditing ? "update Task" : "add task"}
         </button>
       </div>
-
-      {tasks.length > 0 ? (
-        <ul className="task-list">
-          {tasks.map((task, index) => (
-            <li
-              key={index}
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-              }}
-            >
-              {task}
-              <button onClick={() => handleEditTask(index)}>Edit </button>
-              <button onClick={() => handleDeleteTask(index)}>Delete</button>
+      <div className="filter-section">
+        <button onClick={() => setFilter("all")}>All</button>
+        <button onClick={() => setFilter("completed")}>Completed</button>
+        <button onClick={() => setFilter("pending")}>pending</button>
+      </div>
+      {filteredTasks.length > 0 ? (
+        <ul>
+          {filteredTasks.map((task, index) => (
+            <li key={index}>
+              <input
+                type="checkbox"
+                checked={task.completed}
+                onChange={() => toggleComplete(index)}
+              />
+              <span
+                style={{
+                  textDecoration: task.completed ? "line-through" : "none",
+                  color: task.completed ? "gray" : "black",
+                }}
+              >
+                {task.text}
+              </span>
+              <button style={{background:'black'}} onClick={() => handleEditTask(index)}>Edit </button>
+              <button style={{background:'black'}} onClick={() => handleDeleteTask(index)}>Delete </button>
             </li>
           ))}
         </ul>
       ) : (
-        <p style={{ color: "black" }}>No Tasks yet</p>
+        <p> No Tasks to show</p>
       )}
     </div>
   );
