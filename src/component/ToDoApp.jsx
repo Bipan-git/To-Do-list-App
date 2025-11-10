@@ -87,8 +87,18 @@ export default function ToDoApp() {
               >
                 {task.text}
               </span>
-              <button style={{background:'black'}} onClick={() => handleEditTask(index)}>Edit </button>
-              <button style={{background:'black'}} onClick={() => handleDeleteTask(index)}>Delete </button>
+              <button
+                style={{ background: "black" }}
+                onClick={() => handleEditTask(index)}
+              >
+                Edit{" "}
+              </button>
+              <button
+                style={{ background: "black" }}
+                onClick={() => handleDeleteTask(index)}
+              >
+                Delete{" "}
+              </button>
             </li>
           ))}
         </ul>
