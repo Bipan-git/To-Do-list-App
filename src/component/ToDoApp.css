@@ -10,11 +10,15 @@
 
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.input-area {
+  margin-bottom: 20px;
+}
 button {
   margin: 5px;
   padding: 8px 12px;
   font-size: 14px;
   border: none;
+  background-color: #007bff;
   border-radius: 5px;
   cursor: pointer;
 }
@@ -33,14 +37,14 @@ button:hover {
 .input-area input {
   flex: 1;
   padding: 8px;
-  height: 100vh;
+
   border: 1px solid #ccc;
   border-radius: 6px;
 }
 .input-area button {
   padding: 8px 16px;
-  background-color: #456146;
-  color: rgb(6, 0, 0);
+  background-color: hsl(210, 100%, 0%);
+  color: hwb(0 100% 0%);
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -60,3 +64,24 @@ button:hover {
   font-size: 20px;
   margin-bottom: 15px;
 }
+ul {
+  list-style: none;
+  padding: 0;
+}
+li {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 8px 0;
+  background-color: #f9f9f9;
+  padding: 8px 12px;
+  border-radius: 6px;
+}
+li span {
+  margin-left: 8px;
+}
+/* .task-left {
+  display: flex;
+  align-items: center;
+  margin-left: 8px 0;
+} */
