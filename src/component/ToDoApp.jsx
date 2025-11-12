@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ToDoApp.css";
 
 export default function ToDoApp() {
@@ -8,42 +8,63 @@ export default function ToDoApp() {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [filter, setFilter] = useState("all");
 
-  //add new task
+  // ✅ Load tasks from local storage when the app starts
+  useEffect(() => {
+    try {
+      const savedTasks = JSON.parse(localStorage.getItem("tasks")) || [];
+      setTasks(savedTasks);
+    } catch (e) {
+      console.error("failed to load tasks", e);
+    }
+  }, []);
+
+  // ✅ Save tasks to local storage whenever they change
+  useEffect(() => {
+    try {
+      localStorage.setItem("tasks", JSON.stringify(tasks));
+    } catch (e) {
+      console.error("failed to save tasks:", e);
+    }
+  }, [tasks]);
+
+  // ✅ Add or Update a Task
   const handleAddTask = () => {
     if (input.trim() === "") return;
 
     if (isEditing) {
-      //updated tasks immutably
       const updatedTasks = [...tasks];
       updatedTasks[currentIndex].text = input;
       setTasks(updatedTasks);
       setIsEditing(false);
       setCurrentIndex(null);
     } else {
-      setTasks([...tasks, { text: input, completed: false }]);
+      const newTask = { text: input, completed: false };
+      setTasks([...tasks, newTask]);
     }
     setInput("");
   };
-  //delete task
 
+  // ✅ Delete task
   const handleDeleteTask = (index) => {
     const updatedTasks = tasks.filter((_, i) => i !== index);
     setTasks(updatedTasks);
   };
 
-  //edit task
+  // ✅ Edit task
   const handleEditTask = (index) => {
     setIsEditing(true);
     setCurrentIndex(index);
     setInput(tasks[index].text);
   };
-  //toggle completre
+
+  // ✅ Toggle complete
   const toggleComplete = (index) => {
     const updatedTasks = [...tasks];
     updatedTasks[index].completed = !updatedTasks[index].completed;
     setTasks(updatedTasks);
   };
-  //filter Tasks
+
+  // ✅ Filter Tasks
   const filteredTasks = tasks.filter((task) => {
     if (filter === "completed") return task.completed;
     if (filter === "pending") return !task.completed;
@@ -52,7 +73,7 @@ export default function ToDoApp() {
 
   return (
     <div className="todoContainer">
-      <h2>My To-Do-list</h2>
+      <h2>My To-Do List</h2>
 
       <div className="input-area">
         <input
@@ -62,14 +83,16 @@ export default function ToDoApp() {
           onChange={(e) => setInput(e.target.value)}
         />
         <button onClick={handleAddTask}>
-          {isEditing ? "update Task" : "add task"}
+          {isEditing ? "Update Task" : "Add Task"}
         </button>
       </div>
+
       <div className="filter-section">
         <button onClick={() => setFilter("all")}>All</button>
         <button onClick={() => setFilter("completed")}>Completed</button>
-        <button onClick={() => setFilter("pending")}>pending</button>
+        <button onClick={() => setFilter("pending")}>Pending</button>
       </div>
+
       {filteredTasks.length > 0 ? (
         <ul>
           {filteredTasks.map((task, index) => (
@@ -88,22 +111,26 @@ export default function ToDoApp() {
                 {task.text}
               </span>
               <button
-                style={{ background: "black" }}
+                style={{
+                  background: "black",
+                  color: "white",
+                  marginLeft: "10px",
+                }}
                 onClick={() => handleEditTask(index)}
               >
-                Edit{" "}
+                Edit
               </button>
               <button
-                style={{ background: "black" }}
+                style={{ background: "red", color: "white", marginLeft: "5px" }}
                 onClick={() => handleDeleteTask(index)}
               >
-                Delete{" "}
+                Delete
               </button>
             </li>
           ))}
         </ul>
       ) : (
-        <p> No Tasks to show</p>
+        <p>No tasks to show</p>
       )}
     </div>
   );
