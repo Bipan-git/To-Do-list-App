@@ -7,6 +7,7 @@ export default function ToDoApp() {
   const [isEditing, setIsEditing] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(null);
   const [filter, setFilter] = useState("all");
+  const [search, setSearch] = useState("");
 
   // ✅ Load tasks from local storage when the app starts
   useEffect(() => {
@@ -42,6 +43,7 @@ export default function ToDoApp() {
       setTasks([...tasks, newTask]);
     }
     setInput("");
+    setFilter("all");
   };
 
   // ✅ Delete task
@@ -66,9 +68,14 @@ export default function ToDoApp() {
 
   // ✅ Filter Tasks
   const filteredTasks = tasks.filter((task) => {
-    if (filter === "completed") return task.completed;
-    if (filter === "pending") return !task.completed;
-    return true;
+    const matchsSearch = task.text.toLowerCase().includes(search.toLowerCase());
+    const matchsFilter =
+      filter === "all"
+        ? true
+        : filter === "completed"
+        ? task.completed
+        : !task.completed;
+    return matchsSearch && matchsFilter;
   });
 
   return (
@@ -85,6 +92,14 @@ export default function ToDoApp() {
         <button onClick={handleAddTask}>
           {isEditing ? "Update Task" : "Add Task"}
         </button>
+      </div>
+      <div className="search-section">
+        <input
+          type="text"
+          placeholder="search tasks"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
       </div>
 
       <div className="filter-section">
