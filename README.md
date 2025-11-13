@@ -7,13 +7,13 @@ All tasks are saved using **Local Storage** , so they stay even after refreshin 
 
 ## Features
 
--✅Add new tasks
--✅Edit existing tasks
--✅Delete tasks
--✅mark tasks as completed / pending
--✅filter tasks (All/completed/pending)
--✅Responsive desing (works on mobile )
--✅saves data in Local Storage
+- ✅Add new tasks
+- ✅Edit existing tasks
+- ✅Delete tasks
+- ✅mark tasks as completed / pending
+- ✅filter tasks (All/completed/pending)
+- ✅Responsive desing (works on mobile )
+- ✅saves data in Local Storage
 
 ---
 
