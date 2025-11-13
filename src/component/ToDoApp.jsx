@@ -8,6 +8,7 @@ export default function ToDoApp() {
   const [currentIndex, setCurrentIndex] = useState(null);
   const [filter, setFilter] = useState("all");
   const [search, setSearch] = useState("");
+  const [dueDate, setDueDate] = useState("");
 
   // ✅ Load tasks from local storage when the app starts
   useEffect(() => {
@@ -39,11 +40,16 @@ export default function ToDoApp() {
       setIsEditing(false);
       setCurrentIndex(null);
     } else {
-      const newTask = { text: input, completed: false };
+      const newTask = {
+        text: input,
+        completed: false,
+        dueDate: dueDate || "no due Date",
+      };
       setTasks([...tasks, newTask]);
     }
     setInput("");
     setFilter("all");
+    setDueDate("");
   };
 
   // ✅ Delete task
@@ -80,14 +86,19 @@ export default function ToDoApp() {
 
   return (
     <div className="todoContainer">
-      <h2>My To-Do List</h2>
-
+      <h2 color="#000000ff">My To-Do List</h2>
       <div className="input-area">
         <input
           type="text"
           placeholder="Enter task..."
           value={input}
           onChange={(e) => setInput(e.target.value)}
+        />
+        <input
+          type="date"
+          value={dueDate}
+          onChange={(e) => setDueDate(e.target.value)}
+          style={{ padding: "6px", borderRadius: "5px" }}
         />
         <button onClick={handleAddTask}>
           {isEditing ? "Update Task" : "Add Task"}
@@ -124,6 +135,9 @@ export default function ToDoApp() {
                 }}
               >
                 {task.text}
+                <small style={{ color: "#555", marginLeft: "10px" }}>
+                  due: {task.dueDate}
+                </small>
               </span>
               <button
                 style={{
