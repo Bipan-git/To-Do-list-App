@@ -7,17 +7,17 @@ All tasks are saved using **Local Storage** , so they stay even after refreshin 
 
 ## Features
 
-✅Add new tasks
-✅Edit existing tasks
-✅Delete tasks
-✅mnark tasks as completed / pending
-✅filter tasks (All/completed/pending)
-✅Responsive desing (works on mobile )
-✅saves data in Local Storage
+-✅Add new tasks
+-✅Edit existing tasks
+-✅Delete tasks
+-✅mark tasks as completed / pending
+-✅filter tasks (All/completed/pending)
+-✅Responsive desing (works on mobile )
+-✅saves data in Local Storage
 
 ---
 
-##Technologies used
+## Technologies used
 
 - React.js(vite) - for building the user interface
 - HTML5 & CSS3 -for logic and interactivity
@@ -32,3 +32,4 @@ Clone the repository
 
 ```bash
 git clone https://github.com/YOUR_GITHUB_USERNAME/ToDoList-App.git
+```
